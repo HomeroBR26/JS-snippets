@@ -16,8 +16,22 @@ console.log(`A triangle's area is: ${triangleArea(base, height)}`)
 //=============================================================
 //=============================================================
 
+function lowUp(str) {
+  const len = str.length
+  let translation = ''
+  let capitalize = true
+  for (let i = 0; i < len; i++){
+    const char = str.charAt(i)
+    translation += capitalize ? char.toUpperCase() : char.toLowerCase()
+    capitalize = !capitalize
+  }
+
+  return translation
+}
+
 function platzom(str) {
   let translation = str
+  const reverse = (str) => str.split('').reverse().join('')
 
   //If the word ends with "ar", those letters are removed
   if (str.toLowerCase().endsWith('ar')) {
@@ -36,9 +50,16 @@ function platzom(str) {
     translation = `${translation.slice(0, half)}-${translation.slice(half)}`
   }
 
+  //if word is palindrome, abolish all other rules and make
+  //ever other letter uppercase.
+  if (str == reverse(str)) {
+    return lowUp(str)
+  }
+
   return translation
 }
 
 console.log(platzom("programar"))
 console.log(platzom("zorrar"))
 console.log(platzom("wertyuiops"))
+console.log(platzom("sometemos"))
